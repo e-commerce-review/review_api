@@ -28,13 +28,14 @@ type CreateReviewRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserID        int64                  `protobuf:"varint,1,opt,name=userID,proto3" json:"userID,omitempty"`
 	OrderID       int64                  `protobuf:"varint,2,opt,name=orderID,proto3" json:"orderID,omitempty"`
-	Score         int32                  `protobuf:"varint,3,opt,name=score,proto3" json:"score,omitempty"`
-	ServiceScore  int32                  `protobuf:"varint,4,opt,name=serviceScore,proto3" json:"serviceScore,omitempty"`
-	ExpressScore  int32                  `protobuf:"varint,5,opt,name=expressScore,proto3" json:"expressScore,omitempty"`
-	Content       string                 `protobuf:"bytes,6,opt,name=content,proto3" json:"content,omitempty"`
-	PicInfo       string                 `protobuf:"bytes,7,opt,name=picInfo,proto3" json:"picInfo,omitempty"`
-	VideoInfo     string                 `protobuf:"bytes,8,opt,name=videoInfo,proto3" json:"videoInfo,omitempty"`
-	Anonymous     bool                   `protobuf:"varint,9,opt,name=anonymous,proto3" json:"anonymous,omitempty"`
+	StoreID       int64                  `protobuf:"varint,3,opt,name=storeID,proto3" json:"storeID,omitempty"`
+	Score         int32                  `protobuf:"varint,4,opt,name=score,proto3" json:"score,omitempty"`
+	ServiceScore  int32                  `protobuf:"varint,5,opt,name=serviceScore,proto3" json:"serviceScore,omitempty"`
+	ExpressScore  int32                  `protobuf:"varint,6,opt,name=expressScore,proto3" json:"expressScore,omitempty"`
+	Content       string                 `protobuf:"bytes,7,opt,name=content,proto3" json:"content,omitempty"`
+	PicInfo       string                 `protobuf:"bytes,8,opt,name=picInfo,proto3" json:"picInfo,omitempty"`
+	VideoInfo     string                 `protobuf:"bytes,9,opt,name=videoInfo,proto3" json:"videoInfo,omitempty"`
+	Anonymous     bool                   `protobuf:"varint,10,opt,name=anonymous,proto3" json:"anonymous,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -79,6 +80,13 @@ func (x *CreateReviewRequest) GetUserID() int64 {
 func (x *CreateReviewRequest) GetOrderID() int64 {
 	if x != nil {
 		return x.OrderID
+	}
+	return 0
+}
+
+func (x *CreateReviewRequest) GetStoreID() int64 {
+	if x != nil {
+		return x.StoreID
 	}
 	return 0
 }
@@ -770,9 +778,10 @@ func (x *AppealReviewReply) GetAppealID() int64 {
 type AuditAppealRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AppealID      int64                  `protobuf:"varint,1,opt,name=appealID,proto3" json:"appealID,omitempty"`
-	Status        int32                  `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
-	OpUser        string                 `protobuf:"bytes,3,opt,name=opUser,proto3" json:"opUser,omitempty"`
-	OpRemarks     *string                `protobuf:"bytes,4,opt,name=opRemarks,proto3,oneof" json:"opRemarks,omitempty"`
+	ReviewID      int64                  `protobuf:"varint,2,opt,name=reviewID,proto3" json:"reviewID,omitempty"`
+	Status        int32                  `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
+	OpUser        string                 `protobuf:"bytes,4,opt,name=opUser,proto3" json:"opUser,omitempty"`
+	OpRemarks     *string                `protobuf:"bytes,5,opt,name=opRemarks,proto3,oneof" json:"opRemarks,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -814,6 +823,13 @@ func (x *AuditAppealRequest) GetAppealID() int64 {
 	return 0
 }
 
+func (x *AuditAppealRequest) GetReviewID() int64 {
+	if x != nil {
+		return x.ReviewID
+	}
+	return 0
+}
+
 func (x *AuditAppealRequest) GetStatus() int32 {
 	if x != nil {
 		return x.Status
@@ -838,7 +854,6 @@ func (x *AuditAppealRequest) GetOpRemarks() string {
 // 对申诉进行审核的返回值
 type AuditAppealReply struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	AppealID      int64                  `protobuf:"varint,1,opt,name=appealID,proto3" json:"appealID,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -873,17 +888,12 @@ func (*AuditAppealReply) Descriptor() ([]byte, []int) {
 	return file_api_review_v1_review_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *AuditAppealReply) GetAppealID() int64 {
-	if x != nil {
-		return x.AppealID
-	}
-	return 0
-}
-
 // 用户评价列表的请求
 type ListReviewByUserIDRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserID        int64                  `protobuf:"varint,1,opt,name=userID,proto3" json:"userID,omitempty"`
+	Page          int32                  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	Size          int32                  `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -921,6 +931,20 @@ func (*ListReviewByUserIDRequest) Descriptor() ([]byte, []int) {
 func (x *ListReviewByUserIDRequest) GetUserID() int64 {
 	if x != nil {
 		return x.UserID
+	}
+	return 0
+}
+
+func (x *ListReviewByUserIDRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *ListReviewByUserIDRequest) GetSize() int32 {
+	if x != nil {
+		return x.Size
 	}
 	return 0
 }
@@ -974,21 +998,23 @@ var File_api_review_v1_review_proto protoreflect.FileDescriptor
 
 const file_api_review_v1_review_proto_rawDesc = "" +
 	"\n" +
-	"\x1aapi/review/v1/review.proto\x12\rapi.review.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\"\xe6\x02\n" +
+	"\x1aapi/review/v1/review.proto\x12\rapi.review.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\"\x89\x03\n" +
 	"\x13CreateReviewRequest\x12\x1f\n" +
 	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x12!\n" +
-	"\aorderID\x18\x02 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\aorderID\x12%\n" +
-	"\x05score\x18\x03 \x01(\x05B\x0f\xfaB\f\x1a\n" +
+	"\aorderID\x18\x02 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\aorderID\x12!\n" +
+	"\astoreID\x18\x03 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\astoreID\x12%\n" +
+	"\x05score\x18\x04 \x01(\x05B\x0f\xfaB\f\x1a\n" +
 	"0\x010\x020\x030\x040\x05R\x05score\x123\n" +
-	"\fserviceScore\x18\x04 \x01(\x05B\x0f\xfaB\f\x1a\n" +
+	"\fserviceScore\x18\x05 \x01(\x05B\x0f\xfaB\f\x1a\n" +
 	"0\x010\x020\x030\x040\x05R\fserviceScore\x123\n" +
-	"\fexpressScore\x18\x05 \x01(\x05B\x0f\xfaB\f\x1a\n" +
+	"\fexpressScore\x18\x06 \x01(\x05B\x0f\xfaB\f\x1a\n" +
 	"0\x010\x020\x030\x040\x05R\fexpressScore\x12$\n" +
-	"\acontent\x18\x06 \x01(\tB\n" +
+	"\acontent\x18\a \x01(\tB\n" +
 	"\xfaB\ar\x05\x10\b\x18\xff\x01R\acontent\x12\x18\n" +
-	"\apicInfo\x18\a \x01(\tR\apicInfo\x12\x1c\n" +
-	"\tvideoInfo\x18\b \x01(\tR\tvideoInfo\x12\x1c\n" +
-	"\tanonymous\x18\t \x01(\bR\tanonymous\"/\n" +
+	"\apicInfo\x18\b \x01(\tR\apicInfo\x12\x1c\n" +
+	"\tvideoInfo\x18\t \x01(\tR\tvideoInfo\x12\x1c\n" +
+	"\tanonymous\x18\n" +
+	" \x01(\bR\tanonymous\"/\n" +
 	"\x11CreateReviewReply\x12\x1a\n" +
 	"\breviewID\x18\x01 \x01(\x03R\breviewID\"7\n" +
 	"\x10GetReviewRequest\x12#\n" +
@@ -1038,18 +1064,20 @@ const file_api_review_v1_review_proto_rawDesc = "" +
 	"\apicInfo\x18\x05 \x01(\tR\apicInfo\x12\x1c\n" +
 	"\tvideoInfo\x18\x06 \x01(\tR\tvideoInfo\"/\n" +
 	"\x11AppealReviewReply\x12\x1a\n" +
-	"\bappealID\x18\x01 \x01(\x03R\bappealID\"\xac\x01\n" +
+	"\bappealID\x18\x01 \x01(\x03R\bappealID\"\xd1\x01\n" +
 	"\x12AuditAppealRequest\x12#\n" +
-	"\bappealID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\bappealID\x12\x1f\n" +
-	"\x06status\x18\x02 \x01(\x05B\a\xfaB\x04\x1a\x02 \x00R\x06status\x12\x1f\n" +
-	"\x06opUser\x18\x03 \x01(\tB\a\xfaB\x04r\x02\x10\x02R\x06opUser\x12!\n" +
-	"\topRemarks\x18\x04 \x01(\tH\x00R\topRemarks\x88\x01\x01B\f\n" +
+	"\bappealID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\bappealID\x12#\n" +
+	"\breviewID\x18\x02 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\breviewID\x12\x1f\n" +
+	"\x06status\x18\x03 \x01(\x05B\a\xfaB\x04\x1a\x02 \x00R\x06status\x12\x1f\n" +
+	"\x06opUser\x18\x04 \x01(\tB\a\xfaB\x04r\x02\x10\x02R\x06opUser\x12!\n" +
+	"\topRemarks\x18\x05 \x01(\tH\x00R\topRemarks\x88\x01\x01B\f\n" +
 	"\n" +
-	"_opRemarks\".\n" +
-	"\x10AuditAppealReply\x12\x1a\n" +
-	"\bappealID\x18\x01 \x01(\x03R\bappealID\"<\n" +
+	"_opRemarks\"\x12\n" +
+	"\x10AuditAppealReply\"v\n" +
 	"\x19ListReviewByUserIDRequest\x12\x1f\n" +
-	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\"H\n" +
+	"\x06userID\x18\x01 \x01(\x03B\a\xfaB\x04\"\x02 \x00R\x06userID\x12\x1b\n" +
+	"\x04page\x18\x02 \x01(\x05B\a\xfaB\x04\x1a\x02 \x00R\x04page\x12\x1b\n" +
+	"\x04size\x18\x03 \x01(\x05B\a\xfaB\x04\x1a\x02 \x00R\x04size\"H\n" +
 	"\x17ListReviewByUserIDReply\x12-\n" +
 	"\x04list\x18\x01 \x03(\v2\x19.api.review.v1.ReviewInfoR\x04list2\xac\x06\n" +
 	"\x06Review\x12k\n" +
@@ -1061,7 +1089,7 @@ const file_api_review_v1_review_proto_rawDesc = "" +
 	"\fAppealReview\x12\".api.review.v1.AppealReviewRequest\x1a .api.review.v1.AppealReviewReply\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/review/appeal\x12n\n" +
 	"\vAuditAppeal\x12!.api.review.v1.AuditAppealRequest\x1a\x1f.api.review.v1.AuditAppealReply\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/appeal/audit\x12\x84\x01\n" +
 	"\x12ListReviewByUserID\x12(.api.review.v1.ListReviewByUserIDRequest\x1a&.api.review.v1.ListReviewByUserIDReply\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/v1/{userID}/reviewsB2\n" +
-	"\rapi.review.v1P\x01Z\x1freview_service/api/review/v1;v1b\x06proto3"
+	"\rapi.review.v1P\x01Z\x1freview-service/api/review/v1;v1b\x06proto3"
 
 var (
 	file_api_review_v1_review_proto_rawDescOnce sync.Once
