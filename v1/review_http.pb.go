@@ -9,15 +9,14 @@ package v1
 import (
 	context "context"
 	http "github.com/go-kratos/kratos/v3/transport/http"
-	binding "github.com/go-kratos/kratos/v3/transport/http/binding"
 )
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the kratos package it is being compiled against.
 var _ = new(context.Context)
-var _ = binding.EncodeURL
+var _ = http.BuildPath
 
-const _ = http.SupportPackageIsVersion1
+const _ = http.SupportPackageIsVersion3
 
 const OperationReviewAppealReview = "/api.review.v1.Review/AppealReview"
 const OperationReviewAuditAppeal = "/api.review.v1.Review/AuditAppeal"
@@ -266,7 +265,7 @@ func NewReviewHTTPClient(client *http.Client) ReviewHTTPClient {
 func (c *ReviewHTTPClientImpl) AppealReview(ctx context.Context, in *AppealReviewRequest, opts ...http.CallOption) (*AppealReviewReply, error) {
 	var out AppealReviewReply
 	pattern := "/v1/review/appeal"
-	path := binding.EncodeURL(pattern, in, false)
+	path := http.BuildPath(pattern, in)
 	opts = append(opts, http.Operation(OperationReviewAppealReview))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
@@ -280,7 +279,7 @@ func (c *ReviewHTTPClientImpl) AppealReview(ctx context.Context, in *AppealRevie
 func (c *ReviewHTTPClientImpl) AuditAppeal(ctx context.Context, in *AuditAppealRequest, opts ...http.CallOption) (*AuditAppealReply, error) {
 	var out AuditAppealReply
 	pattern := "/v1/appeal/audit"
-	path := binding.EncodeURL(pattern, in, false)
+	path := http.BuildPath(pattern, in)
 	opts = append(opts, http.Operation(OperationReviewAuditAppeal))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
@@ -294,7 +293,7 @@ func (c *ReviewHTTPClientImpl) AuditAppeal(ctx context.Context, in *AuditAppealR
 func (c *ReviewHTTPClientImpl) AuditReview(ctx context.Context, in *AuditReviewRequest, opts ...http.CallOption) (*AuditReviewReply, error) {
 	var out AuditReviewReply
 	pattern := "/v1/review/audit"
-	path := binding.EncodeURL(pattern, in, false)
+	path := http.BuildPath(pattern, in)
 	opts = append(opts, http.Operation(OperationReviewAuditReview))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
@@ -308,7 +307,7 @@ func (c *ReviewHTTPClientImpl) AuditReview(ctx context.Context, in *AuditReviewR
 func (c *ReviewHTTPClientImpl) CreateReview(ctx context.Context, in *CreateReviewRequest, opts ...http.CallOption) (*CreateReviewReply, error) {
 	var out CreateReviewReply
 	pattern := "/v1/review"
-	path := binding.EncodeURL(pattern, in, false)
+	path := http.BuildPath(pattern, in)
 	opts = append(opts, http.Operation(OperationReviewCreateReview))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
@@ -322,7 +321,7 @@ func (c *ReviewHTTPClientImpl) CreateReview(ctx context.Context, in *CreateRevie
 func (c *ReviewHTTPClientImpl) GetReview(ctx context.Context, in *GetReviewRequest, opts ...http.CallOption) (*GetReviewReply, error) {
 	var out GetReviewReply
 	pattern := "/v1/review/{reviewID}"
-	path := binding.EncodeURL(pattern, in, true)
+	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append(opts, http.Operation(OperationReviewGetReview))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
@@ -336,7 +335,7 @@ func (c *ReviewHTTPClientImpl) GetReview(ctx context.Context, in *GetReviewReque
 func (c *ReviewHTTPClientImpl) ListReviewByStoreID(ctx context.Context, in *ListReviewByStoreIDRequest, opts ...http.CallOption) (*ListReviewByStoreIDReply, error) {
 	var out ListReviewByStoreIDReply
 	pattern := "/v1/store/{storeID}/reviews"
-	path := binding.EncodeURL(pattern, in, true)
+	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append(opts, http.Operation(OperationReviewListReviewByStoreID))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
@@ -350,7 +349,7 @@ func (c *ReviewHTTPClientImpl) ListReviewByStoreID(ctx context.Context, in *List
 func (c *ReviewHTTPClientImpl) ListReviewByUserID(ctx context.Context, in *ListReviewByUserIDRequest, opts ...http.CallOption) (*ListReviewByUserIDReply, error) {
 	var out ListReviewByUserIDReply
 	pattern := "/v1/{userID}/reviews"
-	path := binding.EncodeURL(pattern, in, true)
+	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append(opts, http.Operation(OperationReviewListReviewByUserID))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
@@ -364,7 +363,7 @@ func (c *ReviewHTTPClientImpl) ListReviewByUserID(ctx context.Context, in *ListR
 func (c *ReviewHTTPClientImpl) ReplyReview(ctx context.Context, in *ReplyReviewRequest, opts ...http.CallOption) (*ReplyReviewReply, error) {
 	var out ReplyReviewReply
 	pattern := "/v1/review/reply"
-	path := binding.EncodeURL(pattern, in, false)
+	path := http.BuildPath(pattern, in)
 	opts = append(opts, http.Operation(OperationReviewReplyReview))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)

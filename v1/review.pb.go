@@ -1200,7 +1200,7 @@ const file_review_v1_review_proto_rawDesc = "" +
 	"\vAuditAppeal\x12!.api.review.v1.AuditAppealRequest\x1a\x1f.api.review.v1.AuditAppealReply\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/appeal/audit\x12\x84\x01\n" +
 	"\x12ListReviewByUserID\x12(.api.review.v1.ListReviewByUserIDRequest\x1a&.api.review.v1.ListReviewByUserIDReply\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/v1/{userID}/reviews\x12\x8e\x01\n" +
 	"\x13ListReviewByStoreID\x12).api.review.v1.ListReviewByStoreIDRequest\x1a'.api.review.v1.ListReviewByStoreIDReply\"#\x82\xd3\xe4\x93\x02\x1d\x12\x1b/v1/store/{storeID}/reviewsB2\n" +
-	"\rapi.review.v1P\x01Z\x1freview-service/api/review/v1;v1b\x06proto3"
+	"\rapi.review.v1P\x01Z\x1freview_service/api/review/v1;v1b\x06proto3"
 
 var (
 	file_review_v1_review_proto_rawDescOnce sync.Once
