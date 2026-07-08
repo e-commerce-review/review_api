@@ -58,6 +58,13 @@ service Review {
 			get: "/v1/{userID}/reviews",
 		};
 	}
+
+	// B端查看storeID下所有评价
+	rpc ListReviewByStoreID (ListReviewByStoreIDRequest) returns (ListReviewByStoreIDReply) {
+		option (google.api.http) = {
+			get: "/v1/store/{storeID}/reviews",
+		};
+	}
 }
 
 // 创建评价的参数
@@ -168,5 +175,15 @@ message ListReviewByUserIDRequest{
 
 // 用户评价列表的返回值
 message ListReviewByUserIDReply{
+	repeated ReviewInfo list = 1;
+}
+
+message ListReviewByStoreIDRequest{
+	int64 storeID = 1 [(validate.rules).int64 = {gt: 0}];
+	int32 page = 2 [(validate.rules).int32 = {gt: 0}];
+	int32 size = 3 [(validate.rules).int32 = {gt: 0}];
+}
+
+message ListReviewByStoreIDReply{
 	repeated ReviewInfo list = 1;
 }
