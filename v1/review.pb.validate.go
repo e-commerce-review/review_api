@@ -1522,6 +1522,17 @@ func (m *AuditAppealRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if utf8.RuneCountInString(m.GetOpReason()) < 2 {
+		err := AuditAppealRequestValidationError{
+			field:  "OpReason",
+			reason: "value length must be at least 2 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if m.OpRemarks != nil {
 		// no validation rules for OpRemarks
 	}
